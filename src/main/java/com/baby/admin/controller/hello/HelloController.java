@@ -22,13 +22,6 @@ public class HelloController extends AbstractController {
         return "Hello Word";
     }
 
-    private String findOne(){
-        Hello hello = new Hello();
-        hello.setAge("19");
-        hello.setName("zhangkun");
-        return super.findOne(hello);
-    }
-
     @Override
     @Resource(name="helloManager")
     public void setManager(IManager manager) {
