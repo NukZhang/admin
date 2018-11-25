@@ -1,8 +1,6 @@
 package com.baby.admin.manager.hello;
 
 import com.baby.admin.manager.AbstractManager;
-import com.baby.admin.model.Hello;
-import com.baby.admin.model.IModel;
 import org.springframework.stereotype.Component;
 
 /**
