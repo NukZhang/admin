@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baby.admin.business.impl.SysOrgDaoImpl">
+
+    <!-- 查询列 -->
+    <sql id="selectSysOrgColunm">
+    	select t.orgid as orgId,
+    		t.orgname as orgName,
+    		t.parorgid as parOrgId,
+    		t.rootorgtid as rootOrgtId,
+    		t.`level` as level,
+    		t.content
+    </sql>
+
+    <!-- 添加组织机构 -->
+    <insert id="insert" parameterType="SysOrg">
+		insert into sys_org (orgId,
+		              parOrgId,
+		              rootOrgtId,
+		              orgName,
+		              `level`,
+		              content)
+		values (#{orgId,jdbcType=VARCHAR},
+		        #{parOrgId,jdbcType=VARCHAR},
+		        #{rootOrgtId,jdbcType=VARCHAR},
+		        #{orgName,jdbcType=VARCHAR},
+		        #{level,jdbcType=INTEGER},
+		        #{content,jdbcType=VARCHAR})
+	</insert>
+
+    <!-- 删除组织机构 -->
+    <delete id="delete" parameterType="String">
+		delete from sys_org where orgId=#{orgId}
+	</delete>
+
+    <!-- 更新组织机构 -->
+    <update id="update" parameterType="SysOrg">
+		update sys_org t
+		set t.parorgid=#{parOrgId,jdbcType=VARCHAR},
+		    t.rootorgtid=#{rootOrgtId,jdbcType=VARCHAR},
+		    t.orgName=#{orgName,jdbcType=VARCHAR},
+		    t.`level`=#{level,jdbcType=INTEGER},
+			t.content=#{content,jdbcType=VARCHAR}
+		where t.orgId=#{orgId}
+	</update>
+
+    <!-- 根据orgId查询组织机构 -->
+    <select id="selectOne" parameterType="String" resultType="SysOrg">
+        <include refid="selectSysOrgColunm"></include>
+        from sys_org t
+        where t.orgId=#{orgId}
+    </select>
+
+    <!-- 查询组织机构集合 -->
+    <select id="selectList" parameterType="SysOrg" resultType="SysOrg">
+        <include refid="selectSysOrgColunm"></include>
+        from sys_org t
+        <where>
+            <if test="orgId != null and orgId != ''">
+                t.orgid=#{orgId}
+            </if>
+            <if test="orgName != null and orgName != ''">
+                and instr(t.orgname,#{orgName}) > 0
+            </if>
+            <if test="parOrgId != null and parOrgId != ''">
+                and t.parorgid=#{parOrgId}
+            </if>
+            <if test="rootOrgtId != null and rootOrgtId != ''">
+                and t.rootorgtid=#{rootOrgtId}
+            </if>
+            <if test="level != null and level != ''">
+                and t.`level`=#{level}
+            </if>
+            <if test="content != null and content != ''">
+                and instr(t.content,#{content}) > 0
+            </if>
+        </where>
+    </select>
+
+</mapper>

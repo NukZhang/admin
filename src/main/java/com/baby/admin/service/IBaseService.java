@@ -1,18 +1,16 @@
-package com.baby.admin.dao;
+package com.baby.admin.service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author tanbb
- * @Description 数据库服务接口
- * @Date 2018/11/26 23:18
+ * @Description 基础服务接口
  * @param <T> 传入参数
  * @param <E> 返回结果
+ * @Date 2018/12/6 23:41
  * @Version 1.0
  **/
-public interface IBaseDao {
-
+public interface IBaseService {
     /**
      * @Author tanbb
      * @Description 保存对象
@@ -147,5 +145,4 @@ public interface IBaseDao {
      * @return java.util.List<E>
      **/
     <T, E> List<E> selectList(String namespace, String id, T params);
-
 }
