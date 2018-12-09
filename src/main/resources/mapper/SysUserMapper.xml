@@ -41,7 +41,7 @@
 	</insert>
 	<!-- 删除用户-->
 	<delete id="delete" parameterType="String">
-		delete from sys_user where userid=#{userId}
+		delete from sys_user where userid=#{_parameter}
 	</delete>
 	<!-- 更新用户 -->
 	<update id="update" parameterType="SysUser">
@@ -60,7 +60,7 @@
 	<select id="selectOne" parameterType="String" resultType="SysUser">
 		<include refid="selectSysUserColunm"></include>
 		from sys_user t 
-		where t.userid=#{userId}
+		where t.userid=#{_parameter}
 	</select>
 
 	<!-- 查询用户集合 -->

@@ -32,7 +32,7 @@
 
     <!-- 删除组织机构 -->
     <delete id="delete" parameterType="String">
-		delete from sys_org where orgId=#{orgId}
+		delete from sys_org where orgId=#{_parameter}
 	</delete>
 
     <!-- 更新组织机构 -->
@@ -50,7 +50,7 @@
     <select id="selectOne" parameterType="String" resultType="SysOrg">
         <include refid="selectSysOrgColunm"></include>
         from sys_org t
-        where t.orgId=#{orgId}
+        where t.orgId=#{_parameter}
     </select>
 
     <!-- 查询组织机构集合 -->

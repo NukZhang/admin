@@ -5,6 +5,9 @@ import com.baby.admin.manager.ISysOrgService;
 import com.baby.admin.manager.ISysUserService;
 import com.baby.admin.model.SysOrg;
 import com.baby.admin.model.SysUser;
+import com.baby.admin.service.IBaseService;
+import com.baby.admin.web.AbstractController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +23,16 @@ import javax.annotation.Resource;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/sysUser")
-public class SysUserController {
+public class SysUserController extends AbstractController {
+    @Override
     @Resource(name="sysUserService")
+    public void setBaseService(IBaseService baseService) {
+        super.baseService = baseService;
+    }
+
+    @Autowired
     private ISysUserService sysUserService;
-    @Resource(name="sysOrgService")
+    @Autowired
     private ISysOrgService sysOrgService;
 
     @RequestMapping("/sayHello")
@@ -44,4 +53,6 @@ public class SysUserController {
         String orgStr = JSON.toJSONString(org);
         return orgStr;
     }
+
+
 }
