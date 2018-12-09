@@ -10,5 +10,5 @@ import java.util.List;
  **/
 public interface IBaseController {
 
-    public <T> String selectOne(T params);
+    public String selectOne(String params);
 }

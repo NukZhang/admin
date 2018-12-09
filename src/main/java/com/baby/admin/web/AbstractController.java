@@ -21,7 +21,7 @@ public abstract class AbstractController implements IBaseController{
 
     @Override
     @RequestMapping("selectOne")
-    public <T> String selectOne(T params) {
+    public String selectOne(String params) {
         return JSON.toJSONString(baseService.selectOne(params));
     }
 
