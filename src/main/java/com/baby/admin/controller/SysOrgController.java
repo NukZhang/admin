@@ -18,46 +18,33 @@ import java.util.Map;
 
 /**
  * @Author tanbb
- * @Description 用户控制器
- * @Date 2018/12/7 0:56
+ * @Description 组织机构控制器
+ * @Date 2018/12/16 0:05
  * @Version 1.0
  **/
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/sysUser")
-public class SysUserController extends AbstractController<SysUser> {
+@RequestMapping("/sysOrg")
+public class SysOrgController extends AbstractController<SysOrg> {
     @Override
-    @Resource(name="sysUserService")
+    @Resource(name="sysOrgService")
     public void setBaseService(IBaseService baseService) {
         super.baseService = baseService;
     }
 
-    @Override
-    protected void initSave(SysUser params) {
-        System.out.println("int save");
-    }
-
-    @Autowired
-    private ISysUserService sysUserService;
     @Autowired
     private ISysOrgService sysOrgService;
 
-    @RequestMapping("/sayHello")
-    public String sayHello(){
-        return sysUserService.sayHello();
+    @Override
+    protected void initSave(SysOrg params) {
+        params.setParOrgId("01");
+        params.setRootOrgtId("01");
+        System.out.println("init save");
     }
 
-    @RequestMapping("/selectOneOrg")
-    public String selectOneOrg(){
-        SysOrg org = sysOrgService.selectOne("0101");
-        String orgStr = JSON.toJSONString(org);
-        return orgStr;
+    @Override
+    protected void postSave(SysOrg params){
+        super.delete(params.getOrgId());
+        System.out.println("post save");
     }
-
-    @RequestMapping("/testMap")
-    public String testMap(@RequestParam Map<String,Object> map){
-        return JSON.toJSONString(map);
-    }
-
-
 }
