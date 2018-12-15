@@ -10,9 +10,11 @@ import com.baby.admin.web.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @Author tanbb
@@ -23,7 +25,7 @@ import javax.annotation.Resource;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/sysUser")
-public class SysUserController extends AbstractController {
+public class SysUserController extends AbstractController<SysUser> {
     @Override
     @Resource(name="sysUserService")
     public void setBaseService(IBaseService baseService) {
@@ -54,5 +56,8 @@ public class SysUserController extends AbstractController {
         return orgStr;
     }
 
-
+    @RequestMapping("/testMap")
+    public String testMap(@RequestParam Map<String,Object> map){
+        return JSON.toJSONString(map);
+    }
 }
